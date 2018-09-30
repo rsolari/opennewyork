@@ -3531,7 +3531,20 @@
 				right: 2.5em;
 			}
 
+	@media screen and (min-width: 980px) { 
+
+		#header > .navPanelToggle {
+			display: none;
+		}
+	
+	}
+
+
 	@media screen and (max-width: 980px) {
+
+		#header > .navLink {
+			display: none;
+		}
 
 		body.subpage {
 			padding-top: 44px;
