@@ -16,6 +16,41 @@
 		<meta name="twitter:title" content="Open New York" />
 		<meta name="twitter:description" content="New Yorkers for more housing." />
 		<meta name="twitter:image" content="images/big_logo.png" />
+		
+		<!-- Global site tag (gtag.js) - Google Ads: 944924594 -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=AW-944924594"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'AW-944924594');
+		</script>
+		
+		<script>
+		function gtag_report_mailing_list_conversion(callback) {
+		  gtag('event', 'conversion', {
+		      'send_to': 'AW-944924594/YncqCIHUhJYBELLPycID',
+		      'event_callback': callback
+		  });
+		  return false;
+		}
+		</script>
+		
+		<script>
+		var signup_url = "https://groups.google.com/forum/m/#!forum/open_new_york";
+		#('#signup-link').bind('click', function(e) {
+		   e.preventDefault();
+		   if (e.ctrlKey){
+		     gtag_report_mailing_list_conversion(function(){});
+		     window.open(signup_url,'_blank');
+		   } else {
+	             gtag_report_mailing_list_conversion(function(){
+		       window.location = signup_url;
+		     });
+		   }
+		});			
+		</script>
 	</head>
 	<body>
 
@@ -78,7 +113,7 @@
 										<p>
 										Let's open our neighborhoods to more housing so that our neighbors, friends and family can stay. We want more tenant bargaining power, more integration, more equity, and more access to the best city in the world.
 										 </p>
-										<a href="https://groups.google.com/forum/m/#!forum/open_new_york" class="button">Join our mailing list</a>
+										<a href="https://groups.google.com/forum/m/#!forum/open_new_york" id="signup-link" class="button">Join our mailing list</a>
 									</div>
 								</div>
 						</div>
@@ -92,7 +127,7 @@
 									<h3>Get involved</h3>
 									<p>Come to public meetings. Write and call your elected officials. Tell your friends. Meet us at our events.</p>
 									<p>Housing and land-use is political. Politics is about organizing, showing up, and talking about it. Let's make our city even better.</p>
-									<a href="https://groups.google.com/forum/m/#!forum/open_new_york" class="button">Join our mailing list</a>
+									<a href="https://groups.google.com/forum/m/#!forum/open_new_york" id="signup-link" class="button">Join our mailing list</a>
 								</div>
 								<div class="col col1 first">
 									<div class="image round fit">
