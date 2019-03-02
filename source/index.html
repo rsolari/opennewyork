@@ -39,17 +39,17 @@
 		
 		<script>
 		var signup_url = "https://groups.google.com/forum/m/#!forum/open_new_york";
-		#('#signup-link').bind('click', function(e) {
-		   e.preventDefault();
+
+		$('#signup-link').bind('click', function(e) {
 		   if (e.ctrlKey){
 		     gtag_report_mailing_list_conversion(function(){});
-		     window.open(signup_url,'_blank');
 		   } else {
+		     e.preventDefault();
 	             gtag_report_mailing_list_conversion(function(){
 		       window.location = signup_url;
 		     });
 		   }
-		});			
+		});		
 		</script>
 	</head>
 	<body>
