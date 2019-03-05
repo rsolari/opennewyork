@@ -37,21 +37,6 @@
 		  return false;
 		}
 		</script>
-		
-		<script>
-		var signup_url = "https://groups.google.com/forum/m/#!forum/open_new_york";
-
-		$('#signup-link').bind('click', function(e) {
-		   if (e.ctrlKey){
-		     gtag_report_mailing_list_conversion(function(){});
-		   } else {
-		     e.preventDefault();
-	             gtag_report_mailing_list_conversion(function(){
-		       window.location = signup_url;
-		     });
-		   }
-		});		
-		</script>
 	</head>
 	<body>
 
@@ -193,6 +178,21 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+		
+		<script>
+		var signup_url = "https://groups.google.com/forum/m/#!forum/open_new_york";
+
+		$('#signup-link').bind('click', function(e) {
+		   if (e.ctrlKey){
+		     gtag_report_mailing_list_conversion(function(){});
+		   } else {
+		     e.preventDefault();
+	             gtag_report_mailing_list_conversion(function(){
+		       window.location = signup_url;
+		     });
+		   }
+		});		
+		</script>
 
 	</body>
 </html>
