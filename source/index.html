@@ -29,6 +29,14 @@
 		</script>
 		
 		<script>
+		function make_semaphore(num_calls, callback) {
+		  var i = num_calls;
+		  return function() {
+		    i--;
+		    if (i==0) callback();
+		  }
+		}
+			
 		function gtag_report_mailing_list_conversion(callback) {
 		  gtag('event', 'conversion', {
 		      'send_to': 'AW-944924594/YncqCIHUhJYBELLPycID',
@@ -181,17 +189,22 @@
 		
 		<script>
 		var signup_url = "https://groups.google.com/forum/m/#!forum/open_new_york";
+		var goSignup2 = make_semaphore(2, function() {
+		  window.location = signup_url;
+		});
 
 		$('#signup-link').bind('click', function(e) {
 		   if (e.ctrlKey){
 		     gtag_report_mailing_list_conversion(function(){});
+                     ga('gtag_UA_135630911_1.send', 'event', 'Conversions', 'Mailing List');
 		   } else {
 		     e.preventDefault();
-	             gtag_report_mailing_list_conversion(function(){
-		       window.location = signup_url;
-		     });
+	             gtag_report_mailing_list_conversion(goSignup2);
+		     ga('gtag_UA_135630911_1.send', 'event', 'Conversions', 'Mailing List', {
+		       hitCallback: goSignup2
+                     });
 		   }
-		});		
+		});	
 		</script>
 
 	</body>
