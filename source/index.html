@@ -45,6 +45,22 @@
 		  return false;
 		}
 		</script>
+
+		<style>
+			.banner-signup {
+				margin-top: 50px;
+			}
+
+			.banner-signup .signup-link {
+				color: white;
+				font-size: 13pt;
+			}
+
+			.signup-link:hover {
+				cursor: pointer
+			}
+		</style>
+
 	</head>
 	<body>
 
@@ -82,6 +98,9 @@
 						<p>New Yorkers for more housing</p>
 					</header>
 					<a href="#main" class="button big scrolly">Learn More</a>
+					<div class="banner-signup">
+						<a class="signup-link">Join our mailing list</a>
+					</div>
 				</div>
 			</section>
 
@@ -107,7 +126,7 @@
 										<p>
 										Let's open our neighborhoods to more housing so that our neighbors, friends and family can stay. We want more tenant bargaining power, more integration, more equity, and more access to the best city in the world.
 										 </p>
-										<a href="https://groups.google.com/forum/m/#!forum/open_new_york" id="signup-link" class="button">Join our mailing list</a>
+										<a class="signup-link button">Join our mailing list</a>
 									</div>
 								</div>
 						</div>
@@ -121,7 +140,7 @@
 									<h3>Get involved</h3>
 									<p>Come to public meetings. Write and call your elected officials. Tell your friends. Meet us at our events.</p>
 									<p>Housing and land-use is political. Politics is about organizing, showing up, and talking about it. Let's make our city even better.</p>
-									<a href="https://groups.google.com/forum/m/#!forum/open_new_york" id="signup-link" class="button">Join our mailing list</a>
+									<a class="signup-link button">Join our mailing list</a>
 								</div>
 								<div class="col col1 first">
 									<div class="image round fit">
@@ -188,12 +207,12 @@
 			<script src="assets/js/main.js"></script>
 		
 		<script>
-		var signup_url = "https://groups.google.com/forum/m/#!forum/open_new_york";
+		var signup_url = "https://docs.google.com/forms/d/e/1FAIpQLSf1JlsPBN5dnwlb5T8q7DipH971CrhZp_Ct9XdUU4izub0eiA/viewform";
 		var goSignup2 = make_semaphore(2, function() {
 		  window.location = signup_url;
 		});
 
-		$('#signup-link').bind('click', function(e) {
+		$('.signup-link').bind('click', function(e) {
 		   if (e.ctrlKey){
 		     gtag_report_mailing_list_conversion(function(){});
                      ga('gtag_UA_135630911_1.send', 'event', 'Conversions', 'Mailing List');
@@ -204,6 +223,7 @@
 		       hitCallback: goSignup2
                      });
 		   }
+			 window.location.href = signup_url
 		});	
 		</script>
 
