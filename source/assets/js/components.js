@@ -4,6 +4,7 @@ const menuItems = [
   ["faq", "FAQ"],
   ["about", "About"],
   ["press", "Press"],
+  ["zoning", "Zoning 101"],
   ["learn", "Reading List"],
 ]
 function menuLinks() {
