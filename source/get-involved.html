@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Open New York</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		
+		<!-- Global site tag (gtag.js) - Google Ads: 944924594 -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=AW-944924594"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'AW-944924594');
+		</script>
+
+		<style>
+			.address {
+				max-width: 400px;
+				margin: 20px 0;
+			}
+			.findOfficials {
+				margin-bottom: 20px;
+			}
+
+		</style>
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+		<div class="nav"></div>
+		
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Section -->
+					<section class="wrapper">
+						<div class="inner">
+							<div class="2u image right round">
+								<img src="images/big_logo.png" alt="" />
+							</div>
+							<h1>Get Involved!</h1>
+							<hr class="major" />
+
+							<h3>Contact you Elected Officials</h3>
+							<div>
+								<input type="text" name="address" class="address" placeholder="Street Address, City, State Zip">
+								<button class="findOfficials">Find my Elected Officials</button>
+							</div>
+							<div class="officials">
+								<table class="officials">
+									<tr>
+										<th>Office</th>
+										<th>Name</th>
+										<th>Contact</th>
+									</tr>
+								</table>	
+							</div>
+							<div class="error">
+								Unable to find that address
+							</div>
+					</section>
+
+	<!-- Footer -->
+			<footer id="footer">
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/components.js"></script>
+
+			<script>
+				addComponents()
+				$(".officials").hide()
+				$(".error").hide()
+
+				const order = [
+					'NY State Assembly District',
+					'NY State Senate',	
+					'Governor',
+					'Mayor',		
+					'Borough President',		
+					'Comptroller',
+					'Public Advocate',
+					'Lieutenant Governor',					
+					'United States House of Representatives',
+					'United States Senate',
+					'District Attorney',
+					'Attorney General',
+					'State Comptroller',
+				]
+
+				$( ".address" ).keypress(function(evt) {
+					if (evt.charCode == 13) {
+						getOfficials()
+					}
+				});
+
+				$(".findOfficials").click(()=>{
+					getOfficials()
+				});
+				
+
+				function getOfficials() {
+					const civicInfoUrl="https://www.googleapis.com/civicinfo/v2/representatives"
+					const params = {
+						key: 'AIzaSyAMMiARRv8KY-tRvVo6gNNVeqcIG_FN5YY',
+						address: $('.address').val(),
+						//levels and roles should filter but don't seem to be working
+						levels: [
+							"locality",
+							"subLocality1",
+							"subLocality2"
+						],
+						roles: [
+							"legislatorLowerBody",
+							"legislatorUpperBody",
+							"executiveCouncil",
+						]
+					}
+
+					$.get(civicInfoUrl, params)
+						.fail(function(err) {
+									$(".officials").hide()
+									$(".error").show()
+									debugger
+  					})
+						.done((data, status)=>{
+							$(".officials").show()
+							$(".error").hide()
+							const officials = {} 
+							const offices = data.offices
+							for (office of offices) {
+								officials[office.name] = []
+								for (j of office.officialIndices) {
+									officials[office.name].push(data.officials[j])
+								}	
+							}
+
+							// since returned results aren't getting filtered
+							const removals = ['President of the United States','Vice-President of the United States']
+							for (rv of removals) {
+								delete officials[rv]
+							}
+
+							// normalize keys -- if we go multi-state will have to update
+							// these offices come back with specifics e.g. NY State Senate District 27
+							// this makes the office generic (e.g. leaves off the District) so that if we want
+							// to suggest contact your state senator can select easily from the officals hash.
+							// also allows to order
+							const fullOffices = {}
+							const normalizations = ['United States House of Representatives', 'NY State Senate',
+								'NY State Assembly District', 'Borough President', 'District Attorney' ]
+								
+							for (raw of Object.keys(officials)) {
+								for (norm of normalizations) {
+									if (raw.startsWith(norm) || raw.endsWith(norm)) {
+										officials[norm] = officials[raw]
+										delete officials[raw]
+										fullOffices[norm] = raw
+									}
+								}
+							}
+						
+							for (office of order) {
+								for (const official of officials[office]) {
+									let emails = ''
+									if (official.emails && official.emails[0]) {
+										eAddr = official.emails[0]
+										email= `<a href="mailto:${eAddr}">${eAddr}</a><br/>`
+									}
+									const channels = {}
+									let twitter = ''
+									if (official.channels) {
+										for (ch of official.channels) {
+											channels[ch.type] = ch.id
+										}	
+										const tHandle = channels['Twitter']
+										if (tHandle) {
+											twitter = `<a href="https://twitter.com/intent/tweet?screen_name=${tHandle}`+
+												`&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet to @${tHandle}</a>`
+										}
+										// add more later if needed
+									}
+									let name = official.name
+									if (official.urls) {
+										const url = official.urls[0]
+										name = `<a  target="_blank" href='${url}'>${name}</a>`
+									} 
+									name += "<br/>"
+
+									const row = `
+										<tr>
+											<td>${office}</td>
+											<td>${name}</td>
+											<td>
+												${email}
+												${official.phones[0]}<br/>
+												${twitter}
+											</td>
+									`
+									$('table.officials').append(row)
+								}
+							}	
+						})
+				}
+
+			</script>
+			<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	</body>
+</html>
