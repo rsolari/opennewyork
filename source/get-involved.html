@@ -45,11 +45,15 @@
 							<h1>Get Involved!</h1>
 							<hr class="major" />
 
-							<h3>Contact you Elected Officials</h3>
+							
+							<h3>Contact your elected officials and tell them you're pro-housing</h3>
 							<div>
 								<input type="text" name="address" class="address" placeholder="Street Address, City, State Zip">
-								<button class="findOfficials">Find my Elected Officials</button>
+								<button class="findOfficials">Find my elected officials</button>
 							</div>
+								<div class="city-council">
+									<a href='https://council.nyc.gov/districts/' target="_blank">Find your New York City Council Rep</a>
+								</div>
 							<div class="officials">
 								<table class="officials">
 									<tr>
@@ -193,7 +197,7 @@
 									let name = official.name
 									if (official.urls) {
 										const url = official.urls[0]
-										name = `<a  target="_blank" href='${url}'>${name}</a>`
+										name = `<a target="_blank" href='${url}'>${name}</a>`
 									} 
 									name += "<br/>"
 
