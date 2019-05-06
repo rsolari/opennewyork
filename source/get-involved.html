@@ -51,16 +51,8 @@
 								<input type="text" name="address" class="address" placeholder="Street Address, City, State Zip">
 								<button class="findOfficials">Find my elected officials</button>
 							</div>
-								<div class="city-council">
-									<a href='https://council.nyc.gov/districts/' target="_blank">Find your New York City Council Rep</a>
-								</div>
 							<div class="officials">
-								<table class="officials">
-									<tr>
-										<th>Office</th>
-										<th>Name</th>
-										<th>Contact</th>
-									</tr>
+								<table class="officials-tbl">
 								</table>	
 							</div>
 							<div class="error">
@@ -80,6 +72,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/components.js"></script>
+			<script src="assets/js/ny-council-districts.js"></script>
 
 			<script>
 				addComponents()
@@ -112,12 +105,26 @@
 					getOfficials()
 				});
 				
-
 				function getOfficials() {
+					$(".officials-tbl").empty()
+					$(".officials-tbl").prepend(`
+									<tr>
+										<th>Office</th>
+										<th>Name</th>
+										<th>Contact</th>
+									</tr>
+									<tr class='city-council-row'></tr>
+							`
+					)
+
+					const address = $('.address').val()
+
+					getCityCouncilDistrict(address)
+
 					const civicInfoUrl="https://www.googleapis.com/civicinfo/v2/representatives"
 					const params = {
 						key: 'AIzaSyAMMiARRv8KY-tRvVo6gNNVeqcIG_FN5YY',
-						address: $('.address').val(),
+						address,
 						//levels and roles should filter but don't seem to be working
 						levels: [
 							"locality",
@@ -135,7 +142,6 @@
 						.fail(function(err) {
 									$(".officials").hide()
 									$(".error").show()
-									debugger
   					})
 						.done((data, status)=>{
 							$(".officials").show()
@@ -211,10 +217,50 @@
 												${twitter}
 											</td>
 									`
-									$('table.officials').append(row)
+									$('.officials-tbl').append(row)
 								}
 							}	
 						})
+				}
+
+				function getCityCouncilDistrict(addr) {
+					$.ajax({
+						url: 'https://api.cityofnewyork.us/geoclient/v1/search.json', 
+						jsonp: "callback",
+						dataType: "jsonp", 
+						data: {
+							input: addr,
+							app_id: 'f208e50a',
+							app_key: 'db87f7a57ab963b71d36c179ce32157c'
+						}
+					}).done((response)=> {
+					const ccElem = $(".city-council-row")
+					if (response.status == "OK") {
+							const districtNum = +response.results[0].response.cityCouncilDistrict
+							const district = nyCouncilDistricts[districtNum-1]
+							const {name, email, phone} = district
+							ccElem.append(`<td>NYC Council District ${districtNum}</td>`)
+							ccElem.append(`<td><a href='https://council.nyc.gov/district-${districtNum}' target='_blank'>${name}</a></td>`)
+							ccElem.append(`<td>
+															<a href="mailto:${email}">${email}</a><br/>
+															${phone}
+														</td>`)
+						} else {
+							ccElem.append(`
+								<td>
+									Unable to find NY City Council district for that address<br/>
+									<a href='https://council.nyc.gov/districts/' target="_blank">Check the City Council map here</a>
+								</td>
+							`)
+						}
+					}).fail(()=>{
+							ccElem.append(`
+								<td>
+									Unable to find NY City Council district for that address<br/>
+									<a href='https://council.nyc.gov/districts/' target="_blank">Check the City Council map here</a>
+								</td>
+							`)
+					})
 				}
 
 			</script>
