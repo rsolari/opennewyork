@@ -38,6 +38,7 @@ headerAndNav = `
     window.footer=`
       <div class="copyright">
         <ul class="icons">
+          <li><a href="mailto:OpenNYForAll@gmail.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
           <li><a href="https://twitter.com/OpenNYForAll" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
           <li><a href="https://slack.opennewyork.city/" class="icon fa-slack"><span class="label">Slack</span></a></li>
           <li><a href="https://m.facebook.com/OpenNYForAll/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
