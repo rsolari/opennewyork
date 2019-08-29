@@ -1,21 +1,22 @@
 const menuItems = [
-  ["index", "Home"],
-  ["calendar", "Events"],
-  ["faq", "FAQ"],
-  ["about", "About"],
-  ["press", "Press"],
-  ["zoning", "Zoning 101"],
-  ["learn", "Reading List"],
+  ["index.html", "Home"],
+  ["calendar.html", "Events"],
+  ["faq.html", "FAQ"],
+  ["about.html", "About"],
+  ["press.html", "Press"],
+  ["zoning.html", "Zoning 101"],
+  ["learn.html", "Reading List"],
+  ["https://docs.google.com/forms/d/e/1FAIpQLSdtmmYrzB1qxw3u2xf93xrUxyhwHsBx8wVxTeaH91yxMbLB1Q/viewform", "Project Submission Form"],
 ]
 function menuLinks() {
   const links = menuItems.map((item)=> {
-    return `<a href="${item[0]}.html" class="navLink">${item[1]}</a>`
+    return `<a href="${item[0]}" class="navLink">${item[1]}</a>`
   })
   return links.join("\n")
 }
 function menuListItems() {
   const links = menuItems.map((item)=> {
-  return `<li><a href="${item[0]}.html">${item[1]}</a></li>`
+  return `<li><a href="${item[0]}">${item[1]}</a></li>`
   })
   return links.join("\n")
 }
