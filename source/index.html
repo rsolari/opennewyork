@@ -213,13 +213,17 @@
       $('.signup-link').bind('click', function(e) {
         if (e.ctrlKey) {
           gtag_report_mailing_list_conversion(function() {});
-          ga('gtag_UA_135630911_1.send', 'event', 'Conversions', 'Mailing List');
+          if ('ga' in window) {
+            ga('gtag_UA_135630911_1.send', 'event', 'Conversions', 'Mailing List');
+          }
         } else {
           e.preventDefault();
           gtag_report_mailing_list_conversion(goSignup2);
-          ga('gtag_UA_135630911_1.send', 'event', 'Conversions', 'Mailing List', {
-            hitCallback: goSignup2,
-          });
+          if ('ga' in window) {
+            ga('gtag_UA_135630911_1.send', 'event', 'Conversions', 'Mailing List', {
+              hitCallback: goSignup2,
+            });
+          }
         }
         window.location.href = signup_url;
       });
