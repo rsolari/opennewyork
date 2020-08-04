@@ -52,17 +52,7 @@ headerAndNav = `
 contribute = `
   ${style_contrib}
   <div class='contribute'>
-    <div id="cp3f0777bd4f" style="margin: 10px 0" class="rounded-div" onclick="document.getElementById('pay_now_form_6299550622').submit()">
-      <form action="https://checkout.globalgatewaye4.firstdata.com/pay" id="pay_now_form_6299550622" method="post">
-      <input type="hidden" name="x_login" value="WSP-OPEN-kGRNYgDKeA" />
-      <input type="hidden" name="x_show_form" value="PAYMENT_FORM" />
-      <input type="hidden" name="x_fp_sequence" value="15786855033662628778" />
-      <input type="hidden" name="x_fp_hash" value="PNB-1.0-0322ba7283802d43d6717df577114d07e6080c5f" />
-      <input type="hidden" name="x_amount" value="" /><input type="hidden" name="x_currency_code" value="USD" />
-      <input type="hidden" name="x_test_request" value="FALSE" /><input type="hidden" name="x_relay_response" value="" />
-      <input type="hidden" name="donation_prompt" value="" /><input type="hidden" name="button_code" value="Donate Now Open New York" />
-      <button type="button">Donate Now</button>
-      </form>
+      <a href="https://chuffed.org/project/opennewyork" class="button big scrolly" >Donate Now</a>
     </div>  
     <style type="text/css">
       div#cp3f0777bd4f{ width: 200px; background-color: #3498DB; padding: 2px 0; }
