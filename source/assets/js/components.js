@@ -2,9 +2,9 @@ const menuItems = [
   ["index.html", "Home"],
   ["calendar.html", "Events"],
   ["faq.html", "FAQ"],
+  ["careers.html", "Work with us"],
   ["about.html", "About"],
   ["press.html", "Press"],
-  ["zoning.html", "Zoning 101"],
   ["learn.html", "Reading List"],
   ["https://docs.google.com/forms/d/e/1FAIpQLSdtmmYrzB1qxw3u2xf93xrUxyhwHsBx8wVxTeaH91yxMbLB1Q/viewform", "Project Submission Form"],
 ]
@@ -27,7 +27,7 @@ style_contrib = `
       display: flex;
       justify-content: center;
       margin-bottom: 2em;
-      font-weight: nomral;
+      font-weight: normal;
     }
     
     .rounded-div {
