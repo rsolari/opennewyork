@@ -2,7 +2,6 @@ const menuItems = [
   ["index.html", "Home"],
   ["calendar.html", "Events"],
   ["faq.html", "FAQ"],
-  ["careers.html", "Work with us"],
   ["about.html", "About"],
   ["press.html", "Press"],
   ["learn.html", "Reading List"],
